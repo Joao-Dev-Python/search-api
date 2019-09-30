@@ -91,8 +91,8 @@ app = Flask(__name__)
 
 @app.route('/',methods = ['GET'])
 def get_Api():
-    aps = api()
-    return jsonify(aps)
+     
+    return jsonify(api())
 
 
 
