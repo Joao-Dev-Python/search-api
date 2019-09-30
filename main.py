@@ -11,6 +11,7 @@ class PegarEmpregos:
     def __init__(self, pag):
         url_base = "http://empregacampinas.com.br/categoria/vaga/page/{}/".format(pag)
         self.pagina = BeautifulSoup(requests.get(url_base).text, "lxml")
+
         self.pegar_vagas()
 
     def pegar_vagas(self):
@@ -23,12 +24,13 @@ class PegarEmpregos:
     "jobs":[]
     }
     def pegar_detalhes_vaga(self, url):
-        self.vagas["jobs"] = []
+
         link = url
         pagina = BeautifulSoup(requests.get(url).text, "lxml")
         html = pagina.find(class_="col-lg-8 conteudo-vaga")
 
         detalhes = []
+        self.vagas["jobs"] = []
         try: detalhes.append(self.limpar(html.h1.span)[17:-16])
         except: return False
 
@@ -47,8 +49,8 @@ class PegarEmpregos:
                 try: self.validar_email_telefone(detalhes, topico.text)
                 except Exception as erro:print("SEM CONTATO", erro)
 
-        vagas = {"vaga": detalhes[0].split('/')[0].split(' ')[0], "salario": detalhes[3][8:], "desc_com": detalhes[4][11:], "validade": "".join(data_validade),
-                 "desc_brev": detalhes[4][11:50]+detalhes[0].split('/')[1]+detalhes[2].split('/')[0],"requisitos": detalhes[1][19:], "Beneficios": detalhes[2][12:], "contato": detalhes[6], "link": link}
+        vagas = {"vaga": detalhes[0].split('/')[0].split(' ')[0], "salario": detalhes[3][8:], "desc_com": detalhes[4][11:]+'\n\n'+detalhes[4][11:50]+detalhes[0].split('/')[1], "validade": "".join(data_validade),
+                 "desc_brev": detalhes[2].split('/')[0],"requisitos": detalhes[1][19:], "Beneficios": detalhes[2][12:], "contato": detalhes[6], "link": link}
 
         self.vagas["jobs"].append(vagas)
 
