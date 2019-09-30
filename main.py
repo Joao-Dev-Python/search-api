@@ -11,7 +11,6 @@ class PegarEmpregos:
     def __init__(self, pag):
         url_base = "http://empregacampinas.com.br/categoria/vaga/page/{}/".format(pag)
         self.pagina = BeautifulSoup(requests.get(url_base).text, "lxml")
-        self.vagas["jobs"] = []
         self.pegar_vagas()
 
     def pegar_vagas(self):
@@ -23,8 +22,8 @@ class PegarEmpregos:
     vagas = {
     "jobs":[]
     }
-    self.vagas["jobs"] = []
     def pegar_detalhes_vaga(self, url):
+        self.vagas["jobs"] = []
         link = url
         pagina = BeautifulSoup(requests.get(url).text, "lxml")
         html = pagina.find(class_="col-lg-8 conteudo-vaga")
