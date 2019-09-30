@@ -36,6 +36,7 @@ class PegarEmpregos:
 
         try: data_validade = re.findall("\d{2}\/\d{2}\/\d{4}", re.findall("assunto\saté\so\sdia\s\d{2}\/\d{2}\/\d{4}", pagina.text)[0])
         except: data_validade = ""
+        self.vagas["jobs"] = []
 
         for contagem, topico in enumerate(html.findAll("p")):
             if(contagem == 2 or contagem == 3 or contagem == 4 or contagem == 5
@@ -91,7 +92,7 @@ app = Flask(__name__)
 
 @app.route('/',methods = ['GET'])
 def get_Api():
-     
+
     return jsonify(api())
 
 
