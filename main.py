@@ -6,12 +6,13 @@ import re
 import requests
 from bs4 import BeautifulSoup
 
-
+dc = {
+"jobs":[]
+}
 class PegarEmpregos:
     def __init__(self, pag):
         url_base = "http://empregacampinas.com.br/categoria/vaga/page/{}/".format(pag)
         self.pagina = BeautifulSoup(requests.get(url_base).text, "lxml")
-        self.vagas["jobs"] = []
         self.pegar_vagas()
 
     def pegar_vagas(self):
@@ -51,7 +52,7 @@ class PegarEmpregos:
         vagas = {"vaga": detalhes[0].split('/')[0].split(' ')[0], "salario": detalhes[3][8:], "desc_com": detalhes[4][11:]+'\n\n'+detalhes[2].split('/')[0], "validade": "".join(data_validade),
                  "desc_brev": detalhes[4][11:50]+detalhes[0].split('/')[1],"requisitos": detalhes[1][19:], "Beneficios": detalhes[2][12:], "contato": detalhes[6], "link": link}
 
-        self.vagas["jobs"].append(vagas)
+        dc["jobs"].append(vagas)
 
     def limpar(self, txt): return str(txt).replace("\n", "").replace("\t", "").replace("\b", "")
 
@@ -66,7 +67,8 @@ class PegarEmpregos:
 ################# EXEMPLO DE USO
 
 def api ():
-    return PegarEmpregos(1).vagas
+    for i in range(100):
+        return PegarEmpregos(1)
 
 
 
@@ -95,7 +97,7 @@ app = Flask(__name__)
 @app.route('/',methods = ['GET'])
 def get_Api():
 
-    return jsonify(api())
+    return jsonify(dc)
 
 
 
@@ -104,9 +106,9 @@ def get_Api():
 
 @app.route('/<string:arg>',methods = ['GET'])
 def get_Api_search(arg):
-    aps = api()
 
-    search = [i for i in aps['jobs'] if i["vaga"] == arg ]
+
+    search = [i for i in dc['jobs'] if i["vaga"] == arg ]
 
     return jsonify(search)
 
@@ -123,6 +125,7 @@ def get_Api_search(arg):
 
 
 if __name__== '__main__':
+    api()
 
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=True,host='0.0.0.0',port=port)
