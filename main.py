@@ -68,7 +68,7 @@ class PegarEmpregos:
 
 def api ():
     for i in range(100):
-        return PegarEmpregos(i)
+        PegarEmpregos(i)
 
 
 
