@@ -8,13 +8,10 @@ from bs4 import BeautifulSoup
 
 
 class PegarEmpregos:
-    vagas = {
-    "jobs":[]
-    }
     def __init__(self, pag):
         url_base = "http://empregacampinas.com.br/categoria/vaga/page/{}/".format(pag)
         self.pagina = BeautifulSoup(requests.get(url_base).text, "lxml")
-
+        self.vagas["jobs"] = []
         self.pegar_vagas()
 
     def pegar_vagas(self):
@@ -23,7 +20,10 @@ class PegarEmpregos:
         except: pass
 
 
-
+    vagas = {
+    "jobs":[]
+    }
+    self.vagas["jobs"] = []
     def pegar_detalhes_vaga(self, url):
         link = url
         pagina = BeautifulSoup(requests.get(url).text, "lxml")
@@ -37,8 +37,7 @@ class PegarEmpregos:
         except: pass
 
         try: data_validade = re.findall("\d{2}\/\d{2}\/\d{4}", re.findall("assunto\saté\so\sdia\s\d{2}\/\d{2}\/\d{4}", pagina.text)[0])
-        except: data_validade =
-        self.vagas["jobs"] = []
+        except: data_validade = ""
 
 
         for contagem, topico in enumerate(html.findAll("p")):
