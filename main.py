@@ -63,8 +63,7 @@ class PegarEmpregos:
 ################# EXEMPLO DE USO
 
 def api ():
-    dici = PegarEmpregos(1).vagas
-    return dici
+    return PegarEmpregos(1).vagas
 
 
 
