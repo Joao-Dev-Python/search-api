@@ -14,7 +14,7 @@ class PegarEmpregos:
     def __init__(self, pag):
         url_base = "http://empregacampinas.com.br/categoria/vaga/page/{}/".format(pag)
         self.pagina = BeautifulSoup(requests.get(url_base).text, "lxml")
-        self.vagas["jobs"] = []
+
         self.pegar_vagas()
 
     def pegar_vagas(self):
@@ -37,7 +37,8 @@ class PegarEmpregos:
         except: pass
 
         try: data_validade = re.findall("\d{2}\/\d{2}\/\d{4}", re.findall("assunto\saté\so\sdia\s\d{2}\/\d{2}\/\d{4}", pagina.text)[0])
-        except: data_validade = ""
+        except: data_validade =
+        self.vagas["jobs"] = []
 
 
         for contagem, topico in enumerate(html.findAll("p")):
