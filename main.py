@@ -67,7 +67,7 @@ class PegarEmpregos:
 ################# EXEMPLO DE USO
 
 def api ():
-    for i in range(10):
+    for i in range(50):
         PegarEmpregos(i)
 
 
