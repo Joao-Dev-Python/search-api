@@ -49,7 +49,7 @@ class PegarEmpregos:
                 try: self.validar_email_telefone(detalhes, topico.text)
                 except Exception as erro:print("SEM CONTATO", erro)
 
-        vagas = {"vaga": detalhes[0].split('/')[0].split(' ')[0], "salario": detalhes[3][8:], "desc_com": detalhes[4][11:]+'\n\n'+detalhes[2].split('/')[0], "validade": "".join(data_validade),
+        vagas = {"vaga": detalhes[0].split('/')[0].split(' ')[0]+ ' ' + detalhes[0].split('/')[0].split(' ')[1], "salario": detalhes[3][8:], "desc_com": detalhes[4][11:]+'\n\n'+detalhes[2].split('/')[0], "validade": "".join(data_validade),
                  "desc_brev": detalhes[4][11:50]+detalhes[0].split('/')[1],"requisitos": detalhes[1][19:], "Beneficios": detalhes[2][12:], "contato": detalhes[6], "link": link}
 
         dc["jobs"].append(vagas)
