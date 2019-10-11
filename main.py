@@ -50,7 +50,7 @@ class PegarEmpregos:
                 except Exception as erro:print("SEM CONTATO", erro)
         try:
             vagas = {"vaga": detalhes[0], "salario": detalhes[3][8:], "desc_com": detalhes[4][11:]+'\n\n'+detalhes[2].split('/')[0], "validade": "".join(data_validade), "codigo": codigo,
-                     "desc_brev": detalhes[2][12:], "Beneficios": detalhes[2][12:], "contato": detalhes[6], "link": link, 'search' : vaga.split('')[0] }
+                     "desc_brev": detalhes[2][12:], "Beneficios": detalhes[2][12:], "contato": detalhes[6], "link": link, 'search' : detalhes[0].split('')[0] }
             dc["jobs"].append(vagas)
 
         except Exception as erro: print(erro)
